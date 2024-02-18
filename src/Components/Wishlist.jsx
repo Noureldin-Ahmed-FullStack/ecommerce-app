@@ -8,7 +8,6 @@ import axios from 'axios';
 export default function Wishlist() {
 
   const { wishlist, setWishlist } = useContext(MyContext);
-  const { cart, setCart } = useContext(MyContext);
   const [Pending, setPending] = useState(true)
   const headers = {
     'token': localStorage.getItem('token'),

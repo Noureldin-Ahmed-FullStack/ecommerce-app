@@ -16,7 +16,9 @@ export default function Cart() {
         axios.get('https://ecommerce.routemisr.com/api/v1/cart', { headers: headers })
             .then(response => {
                 console.log('cart:', response.data.data);
-                setCart(response.data.data)
+                const cartObj = response.data.data
+                cartObj.numOfCartItems = response.data.numOfCartItems
+                setCart(cartObj)
                 setPending(false)
             })
             .catch(error => {
@@ -31,7 +33,6 @@ export default function Cart() {
             .then(response => {
                 console.log('Response:', response.data);
                 getCart()
-                setPending(false)
                 toast.success("Removed from cart successfuly!", {
                     position: "top-center",
                     autoClose: 5000,
@@ -49,16 +50,38 @@ export default function Cart() {
                 setPending(false)
             });
     }
-    const UpdateQuantity = (prodID,count,op) => {
+    const clearCart = () => {
+        setPending(true)
+        axios.delete(`https://ecommerce.routemisr.com/api/v1/cart`, { headers: headers })
+            .then(response => {
+                console.log('Response:', response.data);
+                getCart()
+                toast.success("cart cleared successfuly!", {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                setPending(false)
+            });
+    }
+    const UpdateQuantity = (prodID, count, op) => {
         setPending(true)
         const body = {
             'count': count + op,
         };
-        axios.put(`https://ecommerce.routemisr.com/api/v1/cart/${prodID}`,body, { headers: headers })
+        axios.put(`https://ecommerce.routemisr.com/api/v1/cart/${prodID}`, body, { headers: headers })
             .then(response => {
                 console.log('Response:', response.data);
                 getCart()
-                setPending(false)
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -80,7 +103,15 @@ export default function Cart() {
             )}
             <div className='container mt-4'>
                 <div className="d-flex justify-content-between mt-4">
-                    <h1> Your Cart</h1> <button className='btn btn-primary px-5 py-0'><FontAwesomeIcon className=' pe-2' icon={fa.faCartShopping} />Check out</button>
+                    <h1>Your Cart</h1> <button className='btn btn-primary px-5 py-0'><FontAwesomeIcon className=' pe-2' icon={fa.faCartShopping} />Check out</button>
+                </div>
+                <div className="row justify-content-between align-items-center mt-4">
+                    <div className='d-flex'>
+                        <p className='mb-0 fa-2x'>Total Price: </p> <p className='mb-0 fa-2x ms-3 text-success'>{cart?.totalCartPrice}</p>
+                    </div>
+                    <div className='d-flex'>
+                        <h5>Total number of items: </h5> <h5 className='ms-3 text-success'>{cart?.numOfCartItems}</h5>
+                    </div>
                 </div>
                 {cart ? (
                     <div>
@@ -98,9 +129,9 @@ export default function Cart() {
                                         </button>
                                     </div>
                                         <div className='d-flex align-items-center'>
-                                            <div onClick={()=>UpdateQuantity(item.product._id,item.count,-1)} className='btn btn-outline-success mx-1'>-</div>
+                                            <div onClick={() => UpdateQuantity(item.product._id, item.count, -1)} className='btn btn-outline-success mx-1'>-</div>
                                             <div className='px-3'>{item.count}</div>
-                                            <div onClick={()=>UpdateQuantity(item.product._id,item.count,1)} className='btn btn-outline-success mx-1'>+</div>
+                                            <div onClick={() => UpdateQuantity(item.product._id, item.count, 1)} className='btn btn-outline-success mx-1'>+</div>
                                         </div>
                                     </div>
                                 </div>
@@ -111,7 +142,7 @@ export default function Cart() {
                     <div></div>
                 )}
                 <div className='d-flex w-100 justify-content-center'>
-                    <button className='mt-2 mb-5 btn btn-outline-danger w-50'><FontAwesomeIcon className='pe-2' icon={fa.faTrash} />Clear you Cart</button>
+                    <button onClick={() => clearCart()} className='mt-2 mb-5 btn btn-outline-danger w-50'><FontAwesomeIcon className='pe-2' icon={fa.faTrash} />Clear your Cart</button>
                 </div>
             </div>
         </>

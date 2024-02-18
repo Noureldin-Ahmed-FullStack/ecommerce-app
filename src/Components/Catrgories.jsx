@@ -5,8 +5,15 @@ import * as fa from '@fortawesome/free-solid-svg-icons'
 
 export default function Catrgories() {
     const [catrgories, setCatrgories] = useState([])
+    const [searchQuery, setSearchQuery] = useState('');
     const [selectedCatrgories, setSelectedCatrgories] = useState([])
     const [selectedCatrgorieName, setSelectedCatrgorieName] = useState([])
+    const filteredData = catrgories.filter(item =>
+        item.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    const handleSearch = (event) => {
+        setSearchQuery(event.target.value); // Update search query state
+    };
     useEffect(() => {
         axios.get('https://ecommerce.routemisr.com/api/v1/categories')
             .then(function (response) {
@@ -22,30 +29,34 @@ export default function Catrgories() {
                 // always executed
             });
     }, []);
-    
-    const handleSubCatClick = async (id , name) => {
+
+    const handleSubCatClick = async (id, name) => {
         try {
-          const response = await axios.get(`https://ecommerce.routemisr.com/api/v1/categories/${id}/subcategories`);
-          // handle success
-          setSelectedCatrgories(response.data.data);
-          setSelectedCatrgorieName(name)
-          console.log(response.data.data);
+            const response = await axios.get(`https://ecommerce.routemisr.com/api/v1/categories/${id}/subcategories`);
+            // handle success
+            setSelectedCatrgories(response.data.data);
+            setSelectedCatrgorieName(name)
+            console.log(response.data.data);
         } catch (error) {
-          // handle error
-          console.error(error);
+            // handle error
+            console.error(error);
         } finally {
-          // always executed
-          console.log("Request completed");
+            // always executed
+            console.log("Request completed");
         }
-      };
+    };
     return (
         <div className='container'>
-            <input placeholder='search' type="search" className='form-control mt-4' />
+            <input type="text"
+                placeholder="Search..."
+                value={searchQuery}
+                onChange={handleSearch}
+                className='form-control mt-4' />
 
             <div className='mt-5' >
                 <div className='row g-4'>
                     {
-                        catrgories.map((catrgories) => (
+                        filteredData.map((catrgories) => (
                             <div key={catrgories._id} onClick={() => handleSubCatClick(catrgories._id, catrgories.name)} className='col-md-6 col-lg-3 rounded-2 myCard'>
                                 <div className="card p-3">
                                     <div>
@@ -83,5 +94,5 @@ export default function Catrgories() {
                 </div>
             </div >
         </div>
-            )
+    )
 }

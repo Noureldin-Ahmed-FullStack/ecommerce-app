@@ -78,14 +78,18 @@ export default function Product() {
     }
     const getCart = () => {
         axios.get('https://ecommerce.routemisr.com/api/v1/cart', { headers: headers })
-          .then(response => {
-            console.log('cart:', response.data.data);
-            setCart(response.data.data)
-          })
-          .catch(error => {
-            console.error('Error:', error);
-          });
-      }
+            .then(response => {
+                console.log('cart:', response.data.data);
+                const cartObj = response.data.data
+                cartObj.numOfCartItems = response.data.numOfCartItems
+                setCart(cartObj)
+                setPending(false)
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                setPending(false)
+            });
+    }
     const addToCart = (data) => {
         setPending(true)
         const body = {

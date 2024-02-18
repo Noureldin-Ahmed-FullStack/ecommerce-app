@@ -8,9 +8,10 @@ import '../css/myStyleSheet.css'
 import { MyContext } from './ContextProvider'
 
 export default function Navbar() {
+    const { cart, setCart } = useContext(MyContext);
 
     const { userObj, setUserObj } = useContext(MyContext);
-    const logOut = ()=>{
+    const logOut = () => {
         setUserObj(null)
         localStorage.clear('token')
     }
@@ -53,7 +54,7 @@ export default function Navbar() {
                                 <FontAwesomeIcon className='cartIcon' icon={fa.faCartShopping} />
                                 <i className="fas fa-bell"></i>
                                 <span className="position-absolute top-0 start-80 translate-middle badge rounded-pill bg-danger">
-                                    3
+                                    {cart?.numOfCartItems? (<>{cart?.numOfCartItems}</>):(<>0</>)}
                                     <span className="visually-hidden">unread messages</span>
                                 </span>
                             </div>
