@@ -4,7 +4,7 @@ import { React,useContext, useState } from 'react'
 import * as Yup from 'yup';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import * as fa from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { MyContext } from './ContextProvider';
@@ -91,7 +91,8 @@ const signUp = async(data)=>{
         <label htmlFor="name">password:</label>
         <input onChange={RegistrationForm.handleChange} className='form-control' name='password' type="password" />
         <p className='text-danger-emphasis m-0'>{RegistrationForm.errors.password}</p>
-        <div className='w-100 d-flex justify-content-end'>
+        <div className='w-100 mt-3 d-flex justify-content-between align-items-center'>
+          <Link to={"/forgotPassword"} className='ForgotPassword'>Forgot your Password?</Link>
           {!loading?(<button className='btn btn-outline-secondary mt-2' type='submit'>Log in</button>):(
             <button className='btn btn-secondary mt-2' type='button'>
               <FontAwesomeIcon className='spinning' icon={fa.faSpinner} />

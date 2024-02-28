@@ -15,6 +15,8 @@ import Login from './Components/Login.jsx'
 import Product from './Components/Product.jsx'
 import Wishlist from './Components/Wishlist.jsx'
 import Cart from './Components/Cart.jsx'
+import ForgotPassword from './Components/ForgotPassword.jsx'
+import ResetPassword from './Components/ResetPassword.jsx'
 
 function App() {
   
@@ -32,8 +34,10 @@ function App() {
         { path: "catrgories", element: <Catrgories /> },
         { path: "register", element: <Register /> },
         { path: "login", element: <Login /> },
+        { path: "forgotPassword", element: <ForgotPassword /> },
+        { path: "ResetPassword", element: <ResetPassword /> },
         { path: "*", element: <PageMissing /> },
-
+        
       ]
     },
 

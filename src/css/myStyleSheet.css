@@ -4,6 +4,17 @@
 }
 .cartIcon{
     font-size: 1.5rem;
+    color: #000000b0;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.brandCard:hover{
+  cursor: pointer;
+  transition: all 0.4s;
+  box-shadow: #4fa74f 0 0 30px;
+}
+.cartIcon:hover{
+    color: #000;
 }
 .fullHeight{
   height: 100hv;
@@ -27,6 +38,19 @@
     font-size: 24px;
     box-shadow: 0 0 10px #00000000; /* Initial glow effect */
     transition: box-shadow 0.3s ease-in-out;
+}
+.tall{
+  height: 100vh;
+}
+.ForgotPassword{
+  color: #000;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.2rem;
+  transition: all 0.3s;
+}
+.ForgotPassword:hover{
+  color: #4fa74f;
 }
 .loading-container {
   z-index: 2000;

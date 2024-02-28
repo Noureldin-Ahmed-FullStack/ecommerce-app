@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.bundle.js'
 import * as fa from '@fortawesome/free-solid-svg-icons'
@@ -11,14 +11,18 @@ export default function Navbar() {
     const { cart, setCart } = useContext(MyContext);
 
     const { userObj, setUserObj } = useContext(MyContext);
+    let nav = useNavigate()
     const logOut = () => {
         setUserObj(null)
         localStorage.clear('token')
     }
+    const goToCart = ()=>{
+        nav('/cart')
+    }
     return (
 
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <div className="navbar-brand ps-2 ms-5 d-flex align-content-center" >
+            <div className="navbar-brand ps-2 ms-5 d-flex align-items-center" >
                 <FontAwesomeIcon className='myNavIcon me-1' icon={fa.faCartShopping} />
                 <NavLink className="nav-link" to=""><h3>fresh cart</h3></NavLink>
             </div>
@@ -35,7 +39,7 @@ export default function Navbar() {
                         <NavLink className="nav-link" to="cart">cart</NavLink>
                     </li>
                     <li className="nav-item">
-                        <NavLink className="nav-link" to="wishlist">wishlist</NavLink>
+                        <NavLink className="nav-link" to="wishlist">wish list</NavLink>
                     </li>
                     <li className="nav-item">
                         <NavLink className="nav-link" to="products">products</NavLink>
@@ -51,9 +55,10 @@ export default function Navbar() {
                     <ul className="navbar-nav d-flex align-items-center">
                         <li className='text-center'>
                             <div className="position-relative">
-                                <FontAwesomeIcon className='cartIcon' icon={fa.faCartShopping} />
+                                {/* <NavLink className="nav-link" to="cart">cart</NavLink> */}
+                                <FontAwesomeIcon onClick={goToCart} className='cartIcon' icon={fa.faCartShopping} />
                                 <i className="fas fa-bell"></i>
-                                <span className="position-absolute top-0 start-80 translate-middle badge rounded-pill bg-danger">
+                                <span className="position-absolute top-0 start-80 translate-middle badge rounded-pill bg-success">
                                     {cart?.numOfCartItems? (<>{cart?.numOfCartItems}</>):(<>0</>)}
                                     <span className="visually-hidden">unread messages</span>
                                 </span>

@@ -96,7 +96,7 @@ const signUp = async(data)=>{
         <input onChange={RegistrationForm.handleChange} className='form-control' name='phone' type="tel" />
         <p className='text-danger-emphasis m-0'>{RegistrationForm.errors.phone}</p>
         <div className='w-100 d-flex justify-content-end'>
-          {loading?(<button className='btn btn-outline-secondary mt-2' type='submit'>Register</button>):(
+          {!loading?(<button className='btn btn-outline-secondary mt-2' type='submit'>Register</button>):(
             <button className='btn btn-secondary mt-2' type='button'>
               <FontAwesomeIcon className=' spinning' icon={fa.faSpinner} />
             </button>
