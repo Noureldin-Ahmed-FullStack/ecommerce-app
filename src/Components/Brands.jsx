@@ -8,7 +8,7 @@ export default function Brands() {
 
     const [Brands, setBrands] = useState([])
     const [modalIsOpen, setModalIsOpen] = useState(false);
-    const [brandName, setBrandName] = useState();
+    const [brandName, setBrandName] = useState("");
     const openModal = (brand) => {
         setBrandName(brand)
         setModalIsOpen(true);
