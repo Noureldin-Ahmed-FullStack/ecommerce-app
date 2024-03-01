@@ -17,6 +17,8 @@ import Wishlist from './Components/Wishlist.jsx'
 import Cart from './Components/Cart.jsx'
 import ForgotPassword from './Components/ForgotPassword.jsx'
 import ResetPassword from './Components/ResetPassword.jsx'
+import CheckOutSession from './Components/CheckOutSession.jsx'
+import AllOrders from './Components/AllOrders.jsx'
 
 function App() {
   
@@ -32,6 +34,8 @@ function App() {
         { path: "wishlist", element: <Wishlist /> },
         { path: "Cart", element: <Cart /> },
         { path: "catrgories", element: <Catrgories /> },
+        { path: "checkOutSession/:id", element: <CheckOutSession /> },
+        { path: "allorders", element: <AllOrders /> },
         { path: "register", element: <Register /> },
         { path: "login", element: <Login /> },
         { path: "forgotPassword", element: <ForgotPassword /> },

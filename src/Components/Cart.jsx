@@ -5,8 +5,11 @@ import Loading from './Loading';
 import * as fa from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 export default function Cart() {
+    
+  let nav = useNavigate()
     const { cart, setCart } = useContext(MyContext);
     const [Pending, setPending] = useState(true)
     const headers = {
@@ -73,6 +76,9 @@ export default function Cart() {
                 setPending(false)
             });
     }
+    const CheckOutSession = () => {
+        nav(`/checkOutSession/${cart._id}`)
+    }
     const UpdateQuantity = (prodID, count, op) => {
         setPending(true)
         const body = {
@@ -103,7 +109,7 @@ export default function Cart() {
             )}
             <div className='container mt-4'>
                 <div className="d-flex justify-content-between mt-4">
-                    <h1>Your Cart</h1> <button className='btn btn-primary px-5 py-0'><FontAwesomeIcon className=' pe-2' icon={fa.faCartShopping} />Check out</button>
+                    <h1>Your Cart</h1> <button onClick={CheckOutSession} className='btn btn-primary px-5 py-0'><FontAwesomeIcon className=' pe-2' icon={fa.faCartShopping} />Check out</button>
                 </div>
                 <div className="row justify-content-between align-items-center mt-4">
                     <div className='d-flex'>
